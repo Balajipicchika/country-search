@@ -19,7 +19,7 @@ const ChatBot = ({ darkMode }) => {
     setLoading(true);
   
     try {
-      const res = await axios.post("http://localhost:5000/chat", {
+      const res = await axios.post("https://country-search-k1nf.onrender.com/chat", {
         prompt: input,
       });
 
