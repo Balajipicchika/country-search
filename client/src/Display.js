@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FaMoon, FaSun } from "react-icons/fa";
-import ChatBot from "./components/ChatBot"
+import ChatBot from "./components/ChatBot";
 
 const Display = () => {
   const [countries, setCountries] = useState([]);
@@ -91,6 +91,16 @@ const Display = () => {
     ),
   ];
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const containerStyle = {
     // padding: "10px",
     fontFamily: "Arial, sans-serif",
@@ -137,46 +147,49 @@ const Display = () => {
             alignItems: "center",
           }}
         >
-          <input
-            type="text"
-            value={query}
-            placeholder="Search by country name"
-            onChange={(e) => setQuery(e.target.value)}
-            style={{
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              width: "220px",
-            }}
-          />
+          <div>
+            <input
+              type="text"
+              value={query}
+              placeholder="Search by country name"
+              onChange={(e) => setQuery(e.target.value)}
+              style={{
+                padding: "10px",
+                // borderRadius: "5px",
+                border: "1px solid #ccc",
+                width: "220px",
+              }}
+            />
 
-          <button
-            onClick={() => {
-              if (query.trim() === "") {
-                toast.warn("Please enter a country name");
-                return;
-              }
-              fetchCountries();
-            }}
-            style={{
-              padding: "10px 15px",
-              backgroundColor: darkMode ? "#555" : "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              margin: "auto",
-            }}
-          >
-            Search
-          </button>
+            <button
+              onClick={() => {
+                if (query.trim() === "") {
+                  toast.warn("Please enter a country name");
+                  return;
+                }
+                fetchCountries();
+              }}
+              style={{
+                padding: "10px 15px",
+                backgroundColor: darkMode ? "#555" : "#007bff",
+                color: "#fff",
+                border: "none",
+                // borderRadius: "5px",
+                cursor: "pointer",
+                margin: "auto",
+                height: "38px",
+              }}
+            >
+              Search
+            </button>
+          </div>
 
           <select
             value={continent}
             onChange={(e) => setContinent(e.target.value)}
             style={{
               padding: "10px",
-              borderRadius: "5px",
+              // borderRadius: "5px",
               border: "1px solid #ccc",
             }}
           >
@@ -193,7 +206,7 @@ const Display = () => {
             onChange={(e) => setRegion(e.target.value)}
             style={{
               padding: "10px",
-              borderRadius: "5px",
+              // borderRadius: "5px",
               border: "1px solid #ccc",
             }}
           >
@@ -213,6 +226,7 @@ const Display = () => {
               cursor: "pointer",
               marginLeft: "10px",
               color: darkMode ? "#fff" : "#333",
+              display: isMobile?"none":""
             }}
           >
             {darkMode ? <FaMoon /> : <FaSun />}
