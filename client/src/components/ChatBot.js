@@ -21,7 +21,7 @@ const ChatBot = ({ darkMode }) => {
     try {
       // const res = await axios.post("https://country-search-k1nf.onrender.com/chat", {
       // https://country-search-k1nf.onrender.com
-      const res = await axios.post("https://country-search-k1nf.onrender.com/chat", {
+      const res = await axios.post("https://country-search-production.up.railway.app/chat", {
         prompt: input,
       });
 
